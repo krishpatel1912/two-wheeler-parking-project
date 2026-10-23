@@ -6,6 +6,7 @@ const API_BASE = import.meta.env.VITE_API_URL
 
 const apiClient = axios.create({
   baseURL: API_BASE,
+  timeout: 120000,  // 2 minutes — AI detection can take 5-15s per image
   headers: {
     'Content-Type': 'application/json',
   },
@@ -59,6 +60,10 @@ export const api = {
   // Processing
   uploadFootage: (formData) => 
     apiClient.post('/processing/upload', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }),
+  detectPhoto: (formData) =>
+    apiClient.post('/processing/detect-photo', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     }),
   getJobs: () => apiClient.get('/processing/jobs'),

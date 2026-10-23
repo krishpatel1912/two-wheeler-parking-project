@@ -267,18 +267,50 @@
 
     <!-- TAB 6: UPLOAD -->
     <div id="tab-upload" class="tab-content hidden space-y-6">
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4 max-w-2xl mx-auto">
-        <h2 class="font-bold text-white text-base">Upload Video or Camera Footage</h2>
-        <p class="text-xs text-slate-400">The pipeline will run YOLOv8 two-wheeler detection, ByteTrack, dwell-time evaluation, and feature classification.</p>
-
-        <div class="border-2 border-dashed border-slate-700 hover:border-slate-500 rounded-xl p-8 text-center cursor-pointer bg-slate-950/40" onclick="simulateUpload()">
-          <div class="text-4xl mb-2">📹</div>
-          <p class="text-sm font-semibold text-white">Click to select video (.mp4, .avi) or drop here</p>
-          <p class="text-xs text-slate-400 mt-1">Simulates file ingestion and processing</p>
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4 max-w-4xl mx-auto">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+          <div>
+            <h2 class="font-bold text-white text-base">AI Single-Photo Parking & Violation Detection</h2>
+            <p class="text-xs text-slate-400">Upload any bike parking image to detect unpositioned / violated bikes together in ONE annotated photo.</p>
+          </div>
+          <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold">
+            All Marked in 1 Image
+          </span>
         </div>
 
-        <div id="upload-status" class="hidden p-3 bg-sky-950 border border-sky-800 rounded-lg text-xs text-sky-400">
-          Uploading and running pipeline...
+        <div class="border-2 border-dashed border-slate-700 hover:border-slate-500 rounded-xl p-6 text-center cursor-pointer bg-slate-950/40" onclick="simulateUpload()">
+          <div class="text-3xl mb-1">📸</div>
+          <p class="text-sm font-semibold text-white">Click or drag any bike parking photo here</p>
+          <p class="text-xs text-slate-400 mt-0.5">Click to run AI detection on sample parking lot</p>
+        </div>
+
+        <div id="upload-status" class="hidden p-3 bg-sky-950/80 border border-sky-800 rounded-lg text-xs text-sky-400 font-semibold flex items-center justify-center gap-2">
+          <span>⚡ Running YOLOv8 detection & spatial alignment analysis...</span>
+        </div>
+
+        <!-- Master Annotated Image Output -->
+        <div id="upload-result-container" class="space-y-4 pt-2">
+          <div class="flex items-center justify-between bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs">
+            <span class="font-bold text-white">Annotated Output: All 14 Slots & Vehicles in ONE Photo</span>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-rose-950 text-rose-400 border border-rose-800 font-bold">1 Unpositioned Violation</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold">7 Sahi Parked</span>
+              <span class="px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-bold">6 Khali Slots</span>
+            </div>
+          </div>
+
+          <div class="rounded-xl overflow-hidden border border-slate-800 bg-black shadow-lg">
+            <img 
+              src="data/evidence/6203aa8a-d955-462d-b663-a6c22101968c_annotated.jpg" 
+              alt="Annotated Result" 
+              class="w-full max-h-[60vh] object-contain"
+            />
+          </div>
+
+          <div class="text-[11px] text-slate-400 bg-slate-950 p-2.5 rounded-lg border border-slate-800/80 flex items-center justify-between">
+            <span>🔴 <strong>Red Box:</strong> Vehicle #14 parked in walkway / aisle (Violation) &bull; 🟢 <strong>Green Box:</strong> Sahi Parked &bull; 🔵 <strong>Cyan Box:</strong> Khali Slot</span>
+            <span class="text-emerald-400 font-bold">Single Output File: 6203aa8a-d955..._annotated.jpg</span>
+          </div>
         </div>
       </div>
     </div>

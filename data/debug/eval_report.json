@@ -1,0 +1,352 @@
+{
+  "conf_threshold": 0.3,
+  "num_images": 25,
+  "total_detected": 551,
+  "total_strip_boxes": 0,
+  "total_violations": 29,
+  "total_moving": 18,
+  "total_unverified": 1,
+  "unverified_percentage": 0.2,
+  "average_time_s": 4.58,
+  "per_image": [
+    {
+      "image": "img01_multirow.jpg",
+      "detected": 25,
+      "classes": {
+        "motorcycle": 25
+      },
+      "visible_count": 25,
+      "violations": 1,
+      "moving": 0,
+      "unverified": 1,
+      "strip_boxes": 0,
+      "elapsed_s": 4.93
+    },
+    {
+      "image": "img02_bicycles_scooters.jpg",
+      "detected": 17,
+      "classes": {
+        "bicycle": 3,
+        "motorcycle": 14
+      },
+      "visible_count": 17,
+      "violations": 4,
+      "moving": 0,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 1.91
+    },
+    {
+      "image": "img03_car_bikes_dirt.jpg",
+      "detected": 12,
+      "classes": {
+        "car": 1,
+        "motorcycle": 10,
+        "bicycle": 1
+      },
+      "visible_count": 12,
+      "violations": 2,
+      "moving": 0,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 4.2
+    },
+    {
+      "image": "img04_aerial_rider.jpg",
+      "detected": 30,
+      "classes": {
+        "motorcycle": 30
+      },
+      "visible_count": 30,
+      "violations": 1,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 4.96
+    },
+    {
+      "image": "img05_sparse_ghost.jpg",
+      "detected": 13,
+      "classes": {
+        "car": 1,
+        "motorcycle": 11,
+        "bicycle": 1
+      },
+      "visible_count": 13,
+      "violations": 2,
+      "moving": 0,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 5.08
+    },
+    {
+      "image": "img06_dense_strip3.jpg",
+      "detected": 25,
+      "classes": {
+        "motorcycle": 25
+      },
+      "visible_count": 25,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 5.17
+    },
+    {
+      "image": "img07_car_bikes_strip37.jpg",
+      "detected": 14,
+      "classes": {
+        "car": 2,
+        "motorcycle": 12
+      },
+      "visible_count": 14,
+      "violations": 2,
+      "moving": 0,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 3.99
+    },
+    {
+      "image": "img08_cycles_strips.png",
+      "detected": 14,
+      "classes": {
+        "bicycle": 3,
+        "motorcycle": 11
+      },
+      "visible_count": 14,
+      "violations": 3,
+      "moving": 0,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 2.76
+    },
+    {
+      "image": "img09_dense_aerial.jpg",
+      "detected": 27,
+      "classes": {
+        "motorcycle": 27
+      },
+      "visible_count": 27,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 5.36
+    },
+    {
+      "image": "img10_street_lot.jpg",
+      "detected": 13,
+      "classes": {
+        "bicycle": 3,
+        "motorcycle": 10
+      },
+      "visible_count": 13,
+      "violations": 3,
+      "moving": 0,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 2.87
+    },
+    {
+      "image": "img11_dense_angle.jpg",
+      "detected": 30,
+      "classes": {
+        "motorcycle": 30
+      },
+      "visible_count": 30,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 6.31
+    },
+    {
+      "image": "img12_packed_scooters.jpg",
+      "detected": 27,
+      "classes": {
+        "motorcycle": 27
+      },
+      "visible_count": 27,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 5.66
+    },
+    {
+      "image": "img13_outdoor_lot.jpg",
+      "detected": 27,
+      "classes": {
+        "motorcycle": 27
+      },
+      "visible_count": 27,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 5.23
+    },
+    {
+      "image": "img14_alley_parking.jpg",
+      "detected": 17,
+      "classes": {
+        "car": 2,
+        "motorcycle": 14,
+        "bicycle": 1
+      },
+      "visible_count": 17,
+      "violations": 3,
+      "moving": 0,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 4.58
+    },
+    {
+      "image": "img15_commercial_bikes.jpg",
+      "detected": 14,
+      "classes": {
+        "car": 1,
+        "motorcycle": 12,
+        "bicycle": 1
+      },
+      "visible_count": 14,
+      "violations": 2,
+      "moving": 0,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 5.69
+    },
+    {
+      "image": "img16_sidewalk_scooters.jpg",
+      "detected": 15,
+      "classes": {
+        "bicycle": 3,
+        "motorcycle": 12
+      },
+      "visible_count": 15,
+      "violations": 3,
+      "moving": 0,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 2.29
+    },
+    {
+      "image": "img17_paved_two_wheelers.jpg",
+      "detected": 26,
+      "classes": {
+        "motorcycle": 26
+      },
+      "visible_count": 26,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 4.87
+    },
+    {
+      "image": "img18_cctv_perspective.jpg",
+      "detected": 24,
+      "classes": {
+        "motorcycle": 24
+      },
+      "visible_count": 24,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 5.04
+    },
+    {
+      "image": "img19_diagonal_bays.jpg",
+      "detected": 24,
+      "classes": {
+        "motorcycle": 24
+      },
+      "visible_count": 24,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 4.91
+    },
+    {
+      "image": "img20_market_scooters.jpg",
+      "detected": 19,
+      "classes": {
+        "motorcycle": 19
+      },
+      "visible_count": 19,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 3.97
+    },
+    {
+      "image": "img21_dense_compound.jpg",
+      "detected": 25,
+      "classes": {
+        "motorcycle": 25
+      },
+      "visible_count": 25,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 4.9
+    },
+    {
+      "image": "img22_multi_vehicle_lot.png",
+      "detected": 15,
+      "classes": {
+        "bicycle": 3,
+        "motorcycle": 12
+      },
+      "visible_count": 15,
+      "violations": 3,
+      "moving": 0,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 2.83
+    },
+    {
+      "image": "img23_highres_row.jpg",
+      "detected": 37,
+      "classes": {
+        "motorcycle": 37
+      },
+      "visible_count": 37,
+      "violations": 0,
+      "moving": 3,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 5.99
+    },
+    {
+      "image": "img24_highres_crowded.jpg",
+      "detected": 37,
+      "classes": {
+        "motorcycle": 37
+      },
+      "visible_count": 37,
+      "violations": 0,
+      "moving": 3,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 6.24
+    },
+    {
+      "image": "img25_street_passage.jpg",
+      "detected": 24,
+      "classes": {
+        "motorcycle": 24
+      },
+      "visible_count": 24,
+      "violations": 0,
+      "moving": 1,
+      "unverified": 0,
+      "strip_boxes": 0,
+      "elapsed_s": 4.69
+    }
+  ]
+}

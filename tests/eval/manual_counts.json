@@ -1,0 +1,127 @@
+{
+  "img01_multirow.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 25,
+    "notes": ""
+  },
+  "img02_bicycles_scooters.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 17,
+    "notes": ""
+  },
+  "img03_car_bikes_dirt.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 12,
+    "notes": ""
+  },
+  "img04_aerial_rider.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 30,
+    "notes": ""
+  },
+  "img05_sparse_ghost.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 13,
+    "notes": ""
+  },
+  "img06_dense_strip3.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 25,
+    "notes": ""
+  },
+  "img07_car_bikes_strip37.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 14,
+    "notes": ""
+  },
+  "img08_cycles_strips.png": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 14,
+    "notes": ""
+  },
+  "img09_dense_aerial.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 27,
+    "notes": ""
+  },
+  "img10_street_lot.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 13,
+    "notes": ""
+  },
+  "img11_dense_angle.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 30,
+    "notes": ""
+  },
+  "img12_packed_scooters.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 27,
+    "notes": ""
+  },
+  "img13_outdoor_lot.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 27,
+    "notes": ""
+  },
+  "img14_alley_parking.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 17,
+    "notes": ""
+  },
+  "img15_commercial_bikes.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 14,
+    "notes": ""
+  },
+  "img16_sidewalk_scooters.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 15,
+    "notes": ""
+  },
+  "img17_paved_two_wheelers.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 26,
+    "notes": ""
+  },
+  "img18_cctv_perspective.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 24,
+    "notes": ""
+  },
+  "img19_diagonal_bays.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 24,
+    "notes": ""
+  },
+  "img20_market_scooters.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 19,
+    "notes": ""
+  },
+  "img21_dense_compound.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 25,
+    "notes": ""
+  },
+  "img22_multi_vehicle_lot.png": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 15,
+    "notes": ""
+  },
+  "img23_highres_row.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 37,
+    "notes": ""
+  },
+  "img24_highres_crowded.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 37,
+    "notes": ""
+  },
+  "img25_street_passage.jpg": {
+    "manual_visible_count": null,
+    "auto_estimated_count": 24,
+    "notes": ""
+  }
+}

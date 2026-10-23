@@ -54,6 +54,8 @@ def _find_project_root() -> Path:
 
 
 PROJECT_ROOT = _find_project_root()
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 
 def _load_config(config_path: Optional[str] = None) -> dict:
@@ -81,26 +83,40 @@ COLORS = {
 
 
 def _draw_track(frame: np.ndarray, track, label: str = "") -> None:
-    """Draw bounding box + label on frame."""
+    """Draw clear high-visibility bounding box + bilingual label on frame."""
     if not CV2_AVAILABLE:
         return
     x1, y1, x2, y2 = [int(v) for v in track.bbox]
-    color = COLORS["parked"] if track.is_parked else COLORS["moving"]
+    cls_name = getattr(track, "class_name", "").lower()
 
-    cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+    # Determine status and color
+    if cls_name == "vacant":
+        color = (255, 191, 0)  # Cyan / Light Blue
+        tag = f"#{track.track_id} [O] KHALI SLOT (VACANT)"
+    elif label == "violation":
+        color = (36, 36, 235)  # Bright Red
+        tag = f"#{track.track_id} [X] GALAT PARKED (VIOLATION)"
+    elif label == "risk":
+        color = (0, 165, 255)  # Bright Amber / Orange
+        tag = f"#{track.track_id} [!] RISK (MISALIGNED)"
+    elif label == "safe":
+        color = (46, 204, 113)  # Bright Emerald Green
+        tag = f"#{track.track_id} [OK] SAHI PARKED (LEGAL)"
+    else:
+        color = (0, 200, 0)
+        tag = f"#{track.track_id} {cls_name.upper()}"
 
-    parts = [f"#{track.track_id} {track.class_name}"]
-    if track.is_parked:
-        parts.append(f"PARKED {track.dwell_seconds:.0f}s")
-    if label:
-        parts.append(label.upper())
-        color = COLORS.get(label, color)
+    # Draw thick bounding box in designated status color
+    cv2.rectangle(frame, (x1, y1), (x2, y2), color, 3)
 
-    text = " | ".join(parts)
-    (tw, th), _ = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 0.55, 1)
-    cv2.rectangle(frame, (x1, y1 - th - 8), (x1 + tw + 4, y1), color, -1)
-    cv2.putText(frame, text, (x1 + 2, y1 - 4),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.55, (255, 255, 255), 1)
+    # Draw pill label background
+    (tw, th), _ = cv2.getTextSize(tag, cv2.FONT_HERSHEY_SIMPLEX, 0.48, 1)
+    top_y = max(44 + th, y1 + th + 4)
+    left_x = max(4, min(x1, frame.shape[1] - tw - 14))
+    cv2.rectangle(frame, (left_x, top_y - th - 6), (left_x + tw + 10, top_y + 4), color, -1)
+    cv2.putText(frame, tag, (left_x + 5, top_y - 2),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.48, (255, 255, 255), 1, cv2.LINE_AA)
+
 
 
 def _save_evidence(frame: np.ndarray, track, evidence_dir: Path) -> Optional[str]:
@@ -190,39 +206,72 @@ class VideoProcessor:
         if frame is None:
             raise FileNotFoundError(f"Cannot read image: {image_path}")
 
-        detections = detector.detect_frame(frame)
-        print(f"[Pipeline] Image: {len(detections)} two-wheeler(s) detected")
+        # Run detection with at least 60% accuracy threshold (configurable)
+        conf_thresh = float(os.environ.get("CONFIDENCE_THRESHOLD", self._config.get("detection", {}).get("confidence_threshold", 0.60)))
+        detections = detector.detect_frame(frame, conf=conf_thresh)
+        print(f"[Pipeline] Image: {len(detections)} vehicle(s) detected (conf >= {conf_thresh:.0%})")
 
-        results = {"source": image_path, "detections": len(detections), "parking_events": 0}
-
-        # For images, every detection is treated as a potential parked vehicle
         from ml.tracking.tracker import TrackedVehicle
-        from datetime import timezone
 
-        for i, det in enumerate(detections):
-            # Synthetic track for feature extraction
-            tv = TrackedVehicle(
-                track_id=i,
+        # Convert to TrackedVehicles for feature engineering
+        all_tracks = [
+            TrackedVehicle(
+                track_id=i + 1,
                 bbox=det.bbox,
                 class_name=det.class_name,
                 confidence=det.confidence,
                 is_parked=True,
                 dwell_seconds=0.0,
             )
-            all_tracks = [TrackedVehicle(track_id=j, bbox=d.bbox,
-                                          class_name=d.class_name, confidence=d.confidence)
-                          for j, d in enumerate(detections) if j != i]
-            feat_row = extractor.extract(tv, frame, all_tracks)
+            for i, det in enumerate(detections)
+        ]
+
+        # First pass: extract features and classify each vehicle
+        analyzed_events = []
+        for i, tv in enumerate(all_tracks):
+            other_tracks = [t for j, t in enumerate(all_tracks) if j != i]
+            feat_row = extractor.extract(tv, frame, other_tracks)
             label_result = classifier.predict(feat_row.to_dict())
             feat_row.label = label_result.get("label", "pending")
             extractor.append_to_csv(feat_row, str(self._features_csv))
+            analyzed_events.append((tv, feat_row, label_result))
 
-            snapshot = _save_evidence(frame, tv, self._evidence_dir)
+        # Generate ONE master annotated photo showing ALL detections together
+        master_snapshot_path = None
+        if self._output_cfg.get("save_evidence_snapshots", True):
+            annotated_frame = frame.copy()
+            for tv, feat_row, label_res in analyzed_events:
+                _draw_track(annotated_frame, tv, feat_row.label)
+
+            # Draw header banner on master photo
+            sahi_cnt = sum(1 for tv, feat, lres in analyzed_events if getattr(tv, "class_name", "").lower() != "vacant" and feat.label == "safe")
+            galat_cnt = sum(1 for tv, feat, lres in analyzed_events if feat.label == "violation")
+            khali_cnt = sum(1 for tv, feat, lres in analyzed_events if getattr(tv, "class_name", "").lower() == "vacant")
+            risk_cnt = sum(1 for tv, feat, lres in analyzed_events if feat.label == "risk")
+
+            banner = f"SAHI PARKED: {sahi_cnt}   |   GALAT PARKED (VIOLATION): {galat_cnt}   |   KHALI SLOTS: {khali_cnt}   |   RISK: {risk_cnt}"
+            cv2.rectangle(annotated_frame, (0, 0), (annotated_frame.shape[1], 36), (15, 23, 42), -1)
+            cv2.putText(annotated_frame, banner, (15, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.60, (255, 255, 255), 2, cv2.LINE_AA)
+
+            self._evidence_dir.mkdir(parents=True, exist_ok=True)
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            fname = f"{ts}_photo_annotated.jpg"
+            fpath = self._evidence_dir / fname
+            cv2.imwrite(str(fpath), annotated_frame)
+            master_snapshot_path = str(fpath.relative_to(PROJECT_ROOT)) if fpath.is_relative_to(PROJECT_ROOT) else str(fpath)
+
+        # Notify DB callback with unified snapshot
+        for tv, feat_row, label_res in analyzed_events:
             if self._db_callback:
-                self._db_callback(tv, feat_row, snapshot, label_result)
-            results["parking_events"] += 1
+                self._db_callback(tv, feat_row, master_snapshot_path, label_res)
 
-        return results
+        return {
+            "source": image_path,
+            "detections": len(detections),
+            "parking_events": len(analyzed_events),
+            "master_snapshot": master_snapshot_path,
+            "confidence_threshold": conf_thresh,
+        }
 
     # ── Video processing ───────────────────────────────────────────────────────
 

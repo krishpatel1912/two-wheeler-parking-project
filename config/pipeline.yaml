@@ -8,10 +8,11 @@ detection:
   # YOLO model weights — relative to project root or absolute path.
   # Use yolov8n.pt / yolov8s.pt / yolov8m.pt (pretrained) or your
   # custom model from data/trained_models/two_wheeler_detector.pt
-  model_path: "yolov8n.pt"
-  # Two-wheeler COCO class names to keep (others are filtered out)
-  classes_to_detect: ["motorcycle", "bicycle"]
-  confidence_threshold: 0.40
+  model_path: "data/trained_models/two_wheeler_detector.pt"
+  # Two-wheeler COCO class names to keep (others are filtered out).
+  # For custom Colab-trained models (< 30 classes), ALL class names are accepted automatically.
+  classes_to_detect: ["motorcycle", "bicycle", "occupied", "vacant"]
+  confidence_threshold: 0.60
   iou_threshold: 0.45
   # Inference device: cpu | cuda | mps
   device: "cpu"
